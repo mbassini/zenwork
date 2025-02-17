@@ -10,3 +10,6 @@
 .vscode/
 .idea/
 *.swp
+
+# Test file
+todo_lists.zenwork.json
