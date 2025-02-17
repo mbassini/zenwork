@@ -2,11 +2,8 @@ package main
 
 import (
 	"flag"
-	//"fmt"
 	"log"
-	//"time"
 
-	//"github.com/mbassini/zenwork/model"
 	"github.com/mbassini/zenwork/storage"
 )
 
@@ -21,4 +18,19 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	//err = lists.New("Fifth List")
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//found, err := lists.Find(3)
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//fmt.Println(found)
+	//
+	//err = tasks.New(model.Task{Name: "Second"}, 2)
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
 }

@@ -19,22 +19,29 @@ func New(name string) error {
 		}
 	}
 
+	newID := len(*storage.ListsData) + 1
 	newList := model.List{
-		ID:        len(*storage.ListsData) + 1,
+		ID:        newID,
 		Name:      name,
 		CreatedAt: time.Now(),
-		Tasks:     []model.Task{},
+		Tasks:     map[int]model.Task{},
 	}
 
-	*storage.ListsData = append(*storage.ListsData, newList)
+	(*storage.ListsData)[newID] = newList
 	return storage.SaveLists()
 }
 
 func Find(id int) (model.List, error) {
-	for _, l := range *storage.ListsData {
-		if l.ID == id {
-			return l, nil
-		}
+	if list, ok := (*storage.ListsData)[id]; ok {
+		return list, nil
 	}
-	return model.List{}, fmt.Errorf("List with ID <%d> not found.", id)
+	return model.List{}, fmt.Errorf("list with ID <%d> not found", id)
+}
+
+func GetAll() []model.List {
+	listsSlice := make([]model.List, 0, len(*storage.ListsData))
+	for _, list := range *storage.ListsData {
+		listsSlice = append(listsSlice, list)
+	}
+	return listsSlice
 }

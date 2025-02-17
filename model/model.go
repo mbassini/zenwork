@@ -3,10 +3,10 @@ package model
 import "time"
 
 type List struct {
-	ID        int       `json:"id"`
-	Name      string    `json:"name"`
-	CreatedAt time.Time `json:"created_at"`
-	Tasks     []Task    `json:"tasks"`
+	ID        int          `json:"id"`
+	Name      string       `json:"name"`
+	CreatedAt time.Time    `json:"created_at"`
+	Tasks     map[int]Task `json:"tasks"`
 }
 
 type Task struct {

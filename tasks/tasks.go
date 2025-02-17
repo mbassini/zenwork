@@ -18,7 +18,7 @@ func New(task model.Task, listID int) error {
 		if l.ID == listID {
 			task.ID = len(l.Tasks) + 1
 			task.CreatedAt = time.Now()
-			(*storage.ListsData)[i].Tasks = append(l.Tasks, task)
+			(*storage.ListsData)[i].Tasks[task.ID] = task
 			found = true
 			break
 		}
