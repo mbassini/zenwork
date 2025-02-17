@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"github.com/mbassini/zenwork/tasks"
 	"log"
 
 	"github.com/mbassini/zenwork/storage"
@@ -33,4 +34,8 @@ func main() {
 	//if err != nil {
 	//	log.Fatal(err)
 	//}
+	err = tasks.Complete(2, 2)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

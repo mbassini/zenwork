@@ -30,3 +30,24 @@ func New(task model.Task, listID int) error {
 
 	return storage.SaveLists()
 }
+
+func Complete(taskID int, listID int) error {
+	list, ok := (*storage.ListsData)[listID]
+	if !ok {
+		return fmt.Errorf("list with id <%d> not found", listID)
+	}
+
+	task, ok := list.Tasks[taskID]
+	if !ok {
+		return fmt.Errorf("task with id <%d> not found in list with id <%d>", taskID, listID)
+	}
+
+	task.Completed = true
+	task.CompletedAt = time.Now()
+
+	list.Tasks[taskID] = task
+
+	(*storage.ListsData)[listID] = list
+
+	return storage.SaveLists()
+}
