@@ -1,0 +1,12 @@
+# compiled binaries
+/zenwork
+
+# workspace stuff
+/bin/
+/pkg/
+/tmp/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
