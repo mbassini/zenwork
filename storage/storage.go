@@ -32,7 +32,7 @@ func LoadLists() error {
 	return nil
 }
 
-func WriteToFile() error {
+func SaveLists() error {
 	fmt.Printf("Writing to file: %v\n", ListsData)
 	data, err := json.MarshalIndent(ListsData, "", "  ")
 	if err != nil {
