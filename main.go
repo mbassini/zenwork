@@ -7,20 +7,20 @@ import (
 )
 
 type Task struct {
-	Completed   bool
-	ID          int
-	DueDate     time.Time
-	CreatedAt   time.Time
-	CompletedAt time.Time
-	Name        string
-	Description string
+	Completed   bool       `json:"completed"`
+	ID          string     `json:"id"`
+	Name        string     `json:"name"`
+	Description *string    `json:"description,omitempty"`
+	DueDate     *time.Time `json:"due_date,omitempty"`
+	CompletedAt *time.Time `json:"completed_at,omitempty"`
+	CreatedAt   time.Time  `json:"created_at"`
 }
 
 type List struct {
-	Id        int
-	Name      string
-	CreatedAt time.Time
-	Tasks     []Task
+	ID        int       `json:"id"`
+	Name      string    `json:"name"`
+	CreatedAt time.Time `json:"created_at"`
+	Tasks     []Task    `json:"tasks"`
 }
 
 func main() {
