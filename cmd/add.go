@@ -24,10 +24,14 @@ var addCmd = &cobra.Command{
 			panic(fmt.Sprintf("Failed to read tasks: %v", err))
 		}
 
-		parsedDeadline := parseDeadline(deadline)
-
 		newTask := task.NewTask(args[0], project, priority)
-		newTask.Deadline = parsedDeadline
+
+		// @TODO: Do not want to store a time.Time zero value in JSON file
+		if deadline != "" {
+			parsedDeadline := parseDeadline(deadline)
+			newTask.Deadline = parsedDeadline
+		}
+
 		existingTasks = append(existingTasks, newTask)
 
 		if err := storage.WriteTasks(existingTasks); err != nil {
@@ -41,7 +45,7 @@ var addCmd = &cobra.Command{
 func parseDeadline(deadline string) time.Time {
 	switch deadline {
 	case "today":
-		// @TODO: Calc remaining time until the end of office hours
+		// @TODO: Calc remaining time until the end of day
 		return time.Now().UTC().Add(8 * time.Hour)
 	case "tomorrow":
 		return time.Now().UTC().AddDate(0, 0, 1)
@@ -58,5 +62,5 @@ func init() {
 	rootCmd.AddCommand(addCmd)
 	addCmd.Flags().StringVarP(&project, "project", "p", "", "Project name")
 	addCmd.Flags().StringVarP(&priority, "priority", "P", "", "Priority (low/medium/high)")
-	addCmd.Flags().StringVarP(&deadline, "deadline", "d", "today", "Deadline (today/tomorrow/RFC3339)")
+	addCmd.Flags().StringVarP(&deadline, "deadline", "d", "", "Deadline (today/tomorrow/RFC3339)")
 }
