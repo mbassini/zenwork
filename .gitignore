@@ -12,4 +12,9 @@
 *.swp
 
 # Test file
-todo_lists.zenwork.json
+
+# Backup
+bkp
+
+#Docs
+PLAN.md

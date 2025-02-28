@@ -1,41 +1,35 @@
 package main
 
 import (
-	"flag"
-	"github.com/mbassini/zenwork/tasks"
-	"log"
-
-	"github.com/mbassini/zenwork/storage"
+	"fmt"
+	"github.com/mbassini/zenwork/internal/storage"
+	"github.com/mbassini/zenwork/internal/task"
+	"time"
 )
 
 func main() {
-	flag.Parse()
-
-	for _, arg := range flag.Args() {
-		log.Println(arg)
-	}
-
-	err := storage.LoadLists()
+	// Read current tasks
+	existingTasks, err := storage.ReadTasks()
 	if err != nil {
-		log.Fatal(err)
+		panic(fmt.Sprintf("Failed to read tasks: %v", err))
 	}
 
-	//err = lists.New("Fifth List")
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
-	//found, err := lists.Find(3)
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
-	//fmt.Println(found)
-	//
-	//err = tasks.New(model.Task{Name: "Second"}, 2)
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
-	err = tasks.Complete(2, 2)
-	if err != nil {
-		log.Fatal(err)
+	// Create and append new task
+	newTask := task.NewTask("Other test", "Testing", "low")
+	newTask.Deadline = time.Now().UTC().Add(12 * time.Hour)
+
+	existingTasks = append(existingTasks, newTask)
+
+	// Save all tasks
+	if err := storage.WriteTasks(existingTasks); err != nil {
+		panic(fmt.Sprintf("Failed to write tasks: %v", err))
 	}
+
+	// Read back
+	loadedTasks, err := storage.ReadTasks()
+	if err != nil {
+		panic(fmt.Sprintf("Failed to reload tasks: %v", err))
+	}
+
+	fmt.Printf("Loaded tasks: %+v\n", loadedTasks)
 }
