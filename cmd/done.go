@@ -8,7 +8,7 @@ import (
 )
 
 var doneCmd = &cobra.Command{
-	Use:   "done [id]",
+	Use:   "done",
 	Short: "Mark a task as completed",
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 0 {
