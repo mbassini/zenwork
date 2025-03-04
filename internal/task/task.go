@@ -27,3 +27,17 @@ func NewTask(title string, project string, priority string) Task {
 		CreatedAt: time.Now().UTC(),
 	}
 }
+
+func (t *Task) StartTimer() {
+	if !t.IsTracking {
+		t.IsTracking = true
+		t.LastStarted = time.Now().UTC()
+	}
+}
+
+func (t *Task) StopTimer() {
+	if t.IsTracking {
+		t.TimeSpent += int(time.Since(t.LastStarted).Seconds())
+		t.IsTracking = false
+	}
+}

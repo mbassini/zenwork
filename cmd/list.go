@@ -26,7 +26,7 @@ var listCmd = &cobra.Command{
 		filteredTasks := filterTasks(tasks, filterProject, filterStatus)
 
 		table := tablewriter.NewWriter(os.Stdout)
-		table.SetHeader([]string{"ID", "Title", "Project", "Priority", "Status", "Deadline"})
+		table.SetHeader([]string{"ID", "Title", "Project", "Priority", "Status", "Time Spent", "Deadline"})
 
 		for _, task := range filteredTasks {
 			table.Append([]string{
@@ -35,6 +35,7 @@ var listCmd = &cobra.Command{
 				task.Project,
 				task.Priority,
 				task.Status,
+				fmt.Sprintf("%d min", task.TimeSpent/60),
 				task.Deadline.Format("2006-01-02 15:04"),
 			})
 		}
