@@ -22,10 +22,7 @@ func InitDB() error {
 		return fmt.Errorf("error getting home directory: %w", err)
 	}
 
-	fmt.Printf("[Home Dir]: %v\n", homeDir)
-
 	dbPath := filepath.Join(homeDir, ".zenwork", dbName)
-	fmt.Printf("[DB Path]: %v\n", dbPath)
 
 	err = os.MkdirAll(filepath.Dir(dbPath), dbFilePermissions)
 	if err != nil {

@@ -1,12 +1,13 @@
 package main
 
 import (
-	"fmt"
+	"os"
 
+	"github.com/mbassini/zenwork/cmd"
 	"github.com/mbassini/zenwork/internal/storage"
 )
 
 func main() {
-	db := storage.InitDB()
-	fmt.Printf("%v", db)
+	storage.InitDB()
+	cmd.Run(os.Args[1:])
 }
